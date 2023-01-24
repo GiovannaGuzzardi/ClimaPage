@@ -13,23 +13,30 @@ function App() {
   // evt é o evento de uma função arrow
 
   const search = evt => {
+    //apos pressionar enter 
     if (evt.key === "Enter") {
       // fetch é uma solicitação de busca simples
       fetch(`${api.base}weather?q=${query}&units=metric&appid=${api.key}`)
         // then é uma promessa que recebe uma função como parametro 
-        // se der errado
+        // retorna o objeto como json
         .then(res => res.json())
-        // se der certo 
+        // retorna todos os dados do objeto atraves do result
         .then(result => {
+          // setClima recebe o objeto entregue pela api 
           setClima(result);
+          //setquery volta a ter valor nulo
           setQuery('');
-          console.log(`Clima : ${setClima}`)
+          //visualização das informações entregues
           console.log(result)
+        })
+        .catch(erro => {
+          console.log(`Erro não mapeado, ${erro}`)
         })
     }
   }
 
   const DataHoje = (d) => {
+    //fazendo com que o mes e diaSemana fique igual ao que quero
     let mes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "junho", "Julho", "Agosto", "Setembro", "Outubro", "Outrubro", "novembro", "Dezembro"];
     let diaSemana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"];
 
@@ -40,6 +47,8 @@ function App() {
 
     return `${dia} ${diaMes} ${mesFinal} ${ano}`
   }
+
+  //se o nome for null o texto é outro
   const cidade = {
     nomeCidade: clima.name || 'Pesquise uma localização valida',
   }
@@ -53,8 +62,11 @@ function App() {
               type="text"
               className="barraDePesquisa"
               placeholder="Pesquisa..."
+              //faço com que setQuery receba o valor escrito
               onChange={e => setQuery(e.target.value)}
+              //faço com que o value receba o valor escrito por query
               value={query}
+              //evento que recebe uma função (trocar)
               onKeyPress={search} />
           </div>
           <div className="localBox">
@@ -67,7 +79,7 @@ function App() {
   } else {
 
     return (
-      <div className={(typeof clima.main != undefined) ? ((clima.main.temp > 15) ? 'App quente' : 'App') : 'App'}>
+      <div className={(clima.main !== undefined) ? ((clima.main.temp > 15) ? 'App quente' : 'App') : 'App'}>
         <main>
           <div className="pesquisa">
             <input
