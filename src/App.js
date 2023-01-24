@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
 
+
+const climaObj = { "Clouds": "Nuvem", "Clear": "Claro", "Snow": "Neve", "Rain": "Chuva", "Drizzle": "Garoa", "Thunderstorm": "Tempestade" }
+
+const Tempo = (d) => {
+  let g = climaObj[d]
+  console.log(g)
+  return g
+}
+
+
+
 const api = {
   key: "f59f66bf99772bf83c2e8fc51e313de1",
   base: "http://api.openweathermap.org/data/2.5/"
@@ -28,9 +39,8 @@ function App() {
           setQuery('');
           //visualização das informações entregues
           console.log(result)
-        })
-        .catch(erro => {
-          console.log(`Erro não mapeado, ${erro}`)
+          console.log(result.weather[0].id)
+          console.log(result.weather[0].main)
         })
     }
   }
@@ -77,7 +87,6 @@ function App() {
       </div>
     )
   } else {
-
     return (
       <div className={(clima.main !== undefined) ? ((clima.main.temp > 15) ? 'App quente' : 'App') : 'App'}>
         <main>
@@ -97,7 +106,7 @@ function App() {
           <div className="tempoBox">
             {/* Math.round() retorna o valor de um número arredondado para o inteiro mais proximo. */}
             <div className="temperatura">{Math.round(clima.main.temp)}°c</div>
-            <div className="clima">{clima.weather[0].main}</div>
+            <div className="clima">{Tempo(clima.weather[0].main)}</div>
           </div>
         </main>
       </div>
