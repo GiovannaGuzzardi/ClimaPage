@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
-
-const climaObj = { "Clouds": "Nuvem", "Clear": "Claro", "Snow": "Neve", "Rain": "Chuva", "Drizzle": "Garoa", "Thunderstorm": "Tempestade" }
+//criei um objeto que seta os valores entregues pela api
+const climaObj = {
+  "Mist": "Névoa", "Smoke": "Fumaça", "Haze": "Nevoeiro", "Sand": "Areia", "Dust": 'Pó', "Fog": "Névoa", "Ash": "Cinzas", "Squall": "Nevasca", "Tornado": "Tornado", "Clouds": "Nuvem", "Clear": "Claro", "Snow": "Neve", "Rain": "Chuva", "Drizzle": "Garoa", "Thunderstorm": "Tempestade"
+}
 
 const Tempo = (d) => {
   let g = climaObj[d]
@@ -104,6 +106,7 @@ function App() {
             {/* Math.round() retorna o valor de um número arredondado para o inteiro mais proximo. */}
             <div className="temperatura">{Math.round(clima.main.temp)}°c</div>
             <div className="clima">{Tempo(clima.weather[0].main)}</div>
+            <div className="climaIcon"> <img src={`http://openweathermap.org/img/wn/${clima.weather[0].icon}@2x.png`} alt='' /> </div>
           </div>
         </main>
       </div>
