@@ -5,7 +5,6 @@ const climaObj = { "Clouds": "Nuvem", "Clear": "Claro", "Snow": "Neve", "Rain": 
 
 const Tempo = (d) => {
   let g = climaObj[d]
-  console.log(g)
   return g
 }
 
@@ -39,8 +38,6 @@ function App() {
           setQuery('');
           //visualização das informações entregues
           console.log(result)
-          console.log(result.weather[0].id)
-          console.log(result.weather[0].main)
         })
     }
   }
